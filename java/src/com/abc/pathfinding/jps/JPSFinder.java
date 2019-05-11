@@ -166,7 +166,7 @@ public class JPSFinder extends Finder {
 	}
 	
 	/**
-	 * 搜索附近的格子
+	 * 查找强制邻接点
 	 * @param node
 	 * @param pre
 	 */

@@ -42,7 +42,6 @@ public class AStarFinder extends Finder {
 			Node node = openList.poll();
 			// 找打路径
 			if (node.equals(end)) {
-				System.out.println(closed.size());
 				return backtrace(node);
 			}
 			

@@ -50,7 +50,6 @@ public class JPSFinder extends Finder {
 			closed.add(top.hashCode());
 			// 到达终点
 			if (top.equals(end)) {
-				System.out.println(closed.size());
 				return backtrace(top);
 			}
 			// add all possible next steps from the current node
@@ -166,7 +165,7 @@ public class JPSFinder extends Finder {
 	}
 	
 	/**
-	 * 查找强制邻接点
+	 * 查找强制邻点（Forced Neighbor）
 	 * @param node
 	 * @param pre
 	 */

@@ -124,14 +124,16 @@ public class JPSFinder extends Finder {
 			// 斜线移动时，必须检查垂直/水平的跳点
 			// 垂直
 			if (isWalkableAt(neighbor, neighbor.x+dx, neighbor.y)) {
-				if (jump(new Node(neighbor.x+dx, neighbor.y), neighbor, end) != null) {
-					return neighbor;
+				Node jn = jump(new Node(neighbor.x+dx, neighbor.y), neighbor, end);
+				if (jn != null) {
+					return jn;
 				}
 			}
 			// 水平
 			if (isWalkableAt(neighbor, neighbor.x, neighbor.y+dy)) {
-				if (jump(new Node(neighbor.x, neighbor.y+dy), neighbor, end) != null) {
-					return neighbor;
+				Node jn = jump(new Node(neighbor.x, neighbor.y+dy), neighbor, end);
+				if (jn != null) {
+					return jn;
 				}
 			}
 		}
@@ -277,6 +279,7 @@ public class JPSFinder extends Finder {
 		if (node == null)
 			return null;
 		LinkedList<Node> paths = new LinkedList<>();
+		paths.addFirst(node);
 		while (node.pre != null) {
 			paths.addFirst(node.pre);
 			node = node.pre;

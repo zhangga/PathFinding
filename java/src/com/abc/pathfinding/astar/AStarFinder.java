@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.abc.pathfinding.Finder;
 import com.abc.pathfinding.map.DistanceAlgo;
@@ -22,12 +23,15 @@ import com.abc.pathfinding.map.Node;
  */
 public class AStarFinder extends Finder {
 	
-	private PriorityQueue<Node> openList = new PriorityQueue<>(new Comparator<Node>() {
-		@Override
-		public int compare(Node o1, Node o2) {
-			return Double.compare(o1.f, o2.f);
-		}
-	});
+	// 使用优先级队列
+//	private PriorityQueue<Node> openList = new PriorityQueue<>(new Comparator<Node>() {
+//		@Override
+//		public int compare(Node o1, Node o2) {
+//			return Double.compare(o1.f, o2.f);
+//		}
+//	});
+	// 使用TreeSet
+	private TreeSet<Node> openList = new TreeSet<>();
 	
 	private Set<Integer> closed = new HashSet<>();
 
@@ -39,8 +43,13 @@ public class AStarFinder extends Finder {
 	public List<Node> findPath(Node start, Node end) {
 		openList.add(start);
 		while (!openList.isEmpty()) {
-			Node node = openList.poll();
-			// 找打路径
+			// 优先级队列api
+//			Node node = openList.poll();
+			// TreeSet api
+			Node node = openList.first();
+			openList.remove(node);
+			
+			// 找到路径
 			if (node.equals(end)) {
 				return backtrace(node);
 			}
@@ -61,9 +70,11 @@ public class AStarFinder extends Finder {
 					double h = heuristic.apply(neighbor.x-end.x, neighbor.y-end.y);
 					neighbor.f = neighbor.g + h;
 					neighbor.pre = node;
-					if (!openList.contains(neighbor)) {						
-						openList.add(neighbor);
+					// 移除不移除都可以，有close表
+					if (openList.contains(neighbor)) {						
+						openList.remove(neighbor);
 					}
+					openList.add(neighbor);
 				}
 			}
 		}

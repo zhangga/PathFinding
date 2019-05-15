@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.abc.pathfinding.Finder;
 import com.abc.pathfinding.map.MapData;
@@ -22,12 +23,15 @@ import com.abc.pathfinding.map.Node;
  */
 public class JPSFinder extends Finder {
 	
+	// 使用优先级队列
 	private PriorityQueue<Node> openList = new PriorityQueue<>(new Comparator<Node>() {
 		@Override
 		public int compare(Node o1, Node o2) {
 			return Double.compare(o1.f, o2.f);
 		}
 	});
+	// 使用TreeSet
+//	private TreeSet<Node> openList = new TreeSet<>();
 	
 	private Set<Integer> closed = new HashSet<>();
 
@@ -46,8 +50,14 @@ public class JPSFinder extends Finder {
 		Node top = null;
 		while (!openList.isEmpty()) {
 			// 将openList中f值最小的节点弹出
+			// 优先级队列api
 			top = openList.poll();
+			// TreeSet api
+//			top = openList.first();
+//			openList.remove(top);
+			
 			closed.add(top.hashCode());
+			
 			// 到达终点
 			if (top.equals(end)) {
 				return backtrace(top);
@@ -92,9 +102,11 @@ public class JPSFinder extends Finder {
 				jumpNode.pre = node;
 				jumpNode.g = new_jump_g;
 				calcF(jumpNode, end);
-				if (!openList.contains(jumpNode)) {					
-					openList.add(jumpNode);
+				// 移除不移除都可以，有close表
+				if (openList.contains(jumpNode)) {					
+					openList.remove(jumpNode);
 				}
+				openList.add(jumpNode);
 			}
 		}
 	}

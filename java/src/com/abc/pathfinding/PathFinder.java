@@ -13,7 +13,7 @@ public class PathFinder {
 
 	public static void main(String[] args) {
 		// 测试
-		test();
+//		test();
 		// 地图数据
 		MapData mapData = new MapData();
 		// JPS
@@ -28,7 +28,7 @@ public class PathFinder {
 		// 1-map
 //		List<Node> paths = finder.findPath(new Node(1, 39), new Node(99, 65));
 		// 2-map
-		List<Node> paths = finder.findPath(new Node(4, 1), new Node(4, 7));
+		List<Node> paths = finder.findPath(new Node(4, 1), new Node(4, 6));
 		// 3-map
 //		List<Node> paths = finder.findPath(new Node(6, 2), new Node(3, 6));
 		System.out.println(paths);

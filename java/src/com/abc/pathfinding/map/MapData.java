@@ -12,7 +12,7 @@ import java.io.IOException;
 public class MapData {
 	
 	/** 文件来源于：https://github.com/SteveRabin/JPSPlusWithGoalBounding/blob/master/JPSPlusGoalBounding/Maps/maze-100-1.map */
-	private static final String FILE_NAME = "./maps/maze-100-2.map";
+	private static final String FILE_NAME = "./maps/maze-100-3.map";
 	
 	/** 阻挡标志量 */
 	private static final int OBSTACLE = 0;

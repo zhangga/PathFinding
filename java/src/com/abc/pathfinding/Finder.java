@@ -58,6 +58,30 @@ public abstract class Finder {
 		return false;
 	}
 	
+	/**
+	 * from.to是否可达
+	 * ------------
+	 * | 障碍 | TO |
+	 * ------------
+	 * |FROM| 障碍 |
+	 * ------------
+	 * @param from
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	protected boolean reachable(Node from, int x, int y) {
+		if (!isWalkableAt(from, x, y))
+			return false;
+		// 横、纵
+		if (from.x == x || from.y == y)
+			return true;
+		// 避免斜线穿墙
+		if (!isWalkableAt(from, x, from.y) && !isWalkableAt(from, from.x, y))
+			return false;
+		return true;
+	}
+	
 	/** 中间计算使用 */
 	protected Neighbors neighbors = new Neighbors();
 	
@@ -69,35 +93,35 @@ public abstract class Finder {
 	protected void getNeighborsAll(Node node) {
 		neighbors.clear();
 		// left
-		if (isWalkableAt(node, node.x, node.y-1)) {
+		if (reachable(node, node.x, node.y-1)) {
 			neighbors.add(new Node(node.x, node.y-1));
 		}
 		// down
-		if (isWalkableAt(node, node.x+1, node.y)) {
+		if (reachable(node, node.x+1, node.y)) {
 			neighbors.add(new Node(node.x+1, node.y));
 		}
 		// right
-		if (isWalkableAt(node, node.x, node.y+1)) {
+		if (reachable(node, node.x, node.y+1)) {
 			neighbors.add(new Node(node.x, node.y+1));
 		}
 		// up
-		if (isWalkableAt(node, node.x-1, node.y)) {
+		if (reachable(node, node.x-1, node.y)) {
 			neighbors.add(new Node(node.x-1, node.y));
 		}
 		// left_up
-		if (isWalkableAt(node, node.x-1, node.y-1)) {
+		if (reachable(node, node.x-1, node.y-1)) {
 			neighbors.add(new Node(node.x-1, node.y-1));
 		}
 		// left_down
-		if (isWalkableAt(node, node.x+1, node.y-1)) {
+		if (reachable(node, node.x+1, node.y-1)) {
 			neighbors.add(new Node(node.x+1, node.y-1));
 		}
 		// right_down
-		if (isWalkableAt(node, node.x+1, node.y+1)) {
+		if (reachable(node, node.x+1, node.y+1)) {
 			neighbors.add(new Node(node.x+1, node.y+1));
 		}
 		// right_up
-		if (isWalkableAt(node, node.x-1, node.y+1)) {
+		if (reachable(node, node.x-1, node.y+1)) {
 			neighbors.add(new Node(node.x-1, node.y+1));
 		}
 	}

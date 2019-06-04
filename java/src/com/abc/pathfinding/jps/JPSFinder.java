@@ -198,28 +198,28 @@ public class JPSFinder extends Finder {
 		// 斜线搜索
 		if (dx != 0 && dy != 0) {
 			// 斜线的水平分量
-			if (isWalkableAt(node, node.x, node.y+dy)) {
+			if (reachable(node, node.x, node.y+dy)) {
 				neighbors.add(new Node(node.x, node.y+dy));
 			}
 			// 斜线的垂直分量
-			if (isWalkableAt(node, node.x+dx, node.y)) {
+			if (reachable(node, node.x+dx, node.y)) {
 				neighbors.add(new Node(node.x+dx, node.y));
 			}
 			// 斜线同方向
-			if (isWalkableAt(node, node.x+dx, node.y+dy)) {
+			if (reachable(node, node.x+dx, node.y+dy)) {
 				neighbors.add(new Node(node.x+dx, node.y+dy));
 			}
 			// 斜线的垂直反方向
-			if (!isWalkableAt(node, node.x-dx, node.y)) {
+			if (!reachable(node, node.x-dx, node.y)) {
 				// 斜线的垂直反方向和水平正方向(例:斜线为↗时，该点为↘右下点)
-				if (isWalkableAt(node, node.x-dx, node.y+dy)) {					
+				if (reachable(node, node.x-dx, node.y+dy)) {					
 					neighbors.add(new Node(node.x-dx, node.y+dy));
 				}
 			}
 			// 斜线的水平反方向
-			if (!isWalkableAt(node, node.x, node.y-dy)) {
+			if (!reachable(node, node.x, node.y-dy)) {
 				// 斜线的垂直正方向和水平反方向(例:斜线为↗时，该点为↖左上点)
-				if (isWalkableAt(node, node.x+dx, node.y-dy)) {					
+				if (reachable(node, node.x+dx, node.y-dy)) {					
 					neighbors.add(new Node(node.x+dx, node.y-dy));
 				}
 			}
@@ -229,20 +229,20 @@ public class JPSFinder extends Finder {
 			// 水平
 			if (dx == 0) {
 				// 水平和原来同方向
-				if (isWalkableAt(node, node.x, node.y+dy)) {
+				if (reachable(node, node.x, node.y+dy)) {
 					neighbors.add(new Node(node.x, node.y+dy));
 				}
 				// 下面阻挡
-				if (!isWalkableAt(node, node.x+1, node.y)) {
+				if (!reachable(node, node.x+1, node.y)) {
 					// 和原来水平同方向的斜下
-					if (isWalkableAt(node, node.x+1, node.y+dy)) {						
+					if (reachable(node, node.x+1, node.y+dy)) {						
 						neighbors.add(new Node(node.x+1, node.y+dy));
 					}
 				}
 				// 上面阻挡
-				if (!isWalkableAt(node, node.x-1, node.y)) {
+				if (!reachable(node, node.x-1, node.y)) {
 					// 和原来水平同方向的斜上
-					if (isWalkableAt(node, node.x-1, node.y+dy)) {						
+					if (reachable(node, node.x-1, node.y+dy)) {						
 						neighbors.add(new Node(node.x-1, node.y+dy));
 					}
 				}
@@ -250,20 +250,20 @@ public class JPSFinder extends Finder {
 			// 垂直
 			else {
 				// 垂直和原来同方向
-				if (isWalkableAt(node, node.x+dx, node.y)) {
+				if (reachable(node, node.x+dx, node.y)) {
 					neighbors.add(new Node(node.x+dx, node.y));
 				}
 				// 右面阻挡
-				if (!isWalkableAt(node, node.x, node.y+1)) {
+				if (!reachable(node, node.x, node.y+1)) {
 					// 和原来垂直同方向的偏右
-					if (isWalkableAt(node, node.x+dx, node.y+1)) {						
+					if (reachable(node, node.x+dx, node.y+1)) {						
 						neighbors.add(new Node(node.x+dx, node.y+1));
 					}
 				}
 				// 左面阻挡
-				if (!isWalkableAt(node, node.x, node.y-1)) {
+				if (!reachable(node, node.x, node.y-1)) {
 					// 和原来垂直同方向的偏左
-					if (isWalkableAt(node, node.x+dx, node.y-1)) {						
+					if (reachable(node, node.x+dx, node.y-1)) {						
 						neighbors.add(new Node(node.x+dx, node.y-1));
 					}
 				}
